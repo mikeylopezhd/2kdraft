@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NBA Snake Draft</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="draft-hero">
+        <div>
+          <p class="eyebrow">Fantasy matchup draft room</p>
+          <h1>NBA Snake Draft</h1>
+        </div>
+        <div class="clock-card">
+          <span id="roundLabel">Round 1</span>
+          <strong id="pickLabel">Pick 1</strong>
+          <small id="turnLabel">Team 1 is on the clock</small>
+          <small id="roomLabel">Local draft</small>
+        </div>
+      </section>
+
+      <section class="setup-panel" aria-label="Draft setup">
+        <label>
+          Teams
+          <select id="teamCount">
+            <option value="2">2 teams</option>
+            <option value="3">3 teams</option>
+            <option value="4">4 teams</option>
+            <option value="5">5 teams</option>
+            <option value="6" selected>6 teams</option>
+          </select>
+        </label>
+        <label>
+          Roster spots
+          <input id="rosterSize" type="number" min="1" max="20" value="10" />
+        </label>
+        <button id="newDraftBtn" type="button">New draft</button>
+        <button id="undoBtn" type="button">Undo pick</button>
+        <button id="exportBtn" type="button">Export</button>
+      </section>
+
+      <section class="draft-grid">
+        <aside class="board-panel">
+          <div class="panel-head">
+            <div>
+              <h2>Available Players</h2>
+              <p>Starter list is editable. Search, sort by rank, and draft.</p>
+            </div>
+            <input id="playerSearch" type="search" placeholder="Search player or team" />
+          </div>
+          <div class="player-list" id="playerList"></div>
+        </aside>
+
+        <section class="teams-panel" id="teamsPanel" aria-label="Drafted teams"></section>
+      </section>
+
+      <section class="tools-panel">
+        <div>
+          <h2>Custom Player Pool</h2>
+          <p>Paste one player per line. Use formats like <code>1, Nikola Jokic, DEN</code>, <code>Nikola Jokic - DEN</code>, or add a photo URL and 2K rating as comma fields.</p>
+        </div>
+        <textarea id="importText" rows="7" spellcheck="false" placeholder="1, Player Name, TEAM, optional photo URL, optional 2K rating"></textarea>
+        <div class="tool-actions">
+          <button id="importBtn" type="button">Import list</button>
+          <button id="restoreBtn" type="button">Restore starter 200</button>
+          <span>Ranks are a starter board for friendly drafts. Tweak them for your scoring style.</span>
+        </div>
+      </section>
+    </main>
+
+    <dialog id="exportDialog">
+      <form method="dialog">
+        <div class="panel-head">
+          <h2>Draft Export</h2>
+          <button value="close" type="submit">Close</button>
+        </div>
+        <textarea id="exportText" rows="14" readonly></textarea>
+      </form>
+    </dialog>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
